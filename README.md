@@ -13,6 +13,7 @@ A received command should be added so if any bill has been settled
 
 Print the amounts they owe or have lent to the other 3 users.
 
+Deadline- 26/03/21
 
 Step 2- To host this basic code on a site
 
@@ -27,6 +28,8 @@ Learn to host python-Django websites to Heroku
 End product-
 
 Rough fill in the blank interactive website and accurate result output
+
+Deadline- Not Applicable
 
 Step 3- Customising the webpage
 
