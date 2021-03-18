@@ -2,6 +2,7 @@
 Step 1- Getting the transaction part of it up and running
 This can be achieved using pure python with visual studio or any editor of choice
 Any progress needs to be pushed to this GIT repository
+
 Procedure- Can be done by using simple if else and dictionary,sets,tuple concepts
 
 End product- It should be able to successfully store upto 4 user information 
