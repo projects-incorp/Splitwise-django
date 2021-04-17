@@ -1,9 +1,24 @@
 from django.shortcuts import render
 from webapp.forms import UserForm
 #from webapp.forms import UserProfileInfo
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate,login,logout
+
+
 def index(request):
     return render(request,'webapp/index.html')
+
+@login_required
+def special(request):
+    return HttpResponse("You are logged in")
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
 
 def register(request):
 
@@ -31,7 +46,29 @@ def register(request):
     return render(request,'webapp/registeration.html',{'user_form':user_form,'registered':registered})
     #add key value pair 'profile_form':profile_form,
 
+def user_login(request):
 
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username,password=password)
+
+        if user:
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect(reverse('index'))
+
+            else:
+                return HttpResponse("ACCOUNT NOT ACTIVE")
+
+        else:
+            print("Someone tried to login and failed!")
+            print("Username: {} and password: {}".format(username,password))
+            return HttpResponse("Invalid login details supplied!")
+
+    else:
+        return render(request, 'webapp/login.html', {})
 
 
 
