@@ -10,9 +10,10 @@ def register(request):
     registered=False
 
     if request.method == "POST":
-        user_form=UserForm(data=reuest.Post)
+        user_form=UserForm(data=request.POST)
         #profile_form=UserProfileInfoForm(data=reuest.Post)
-        if user_form.isvalid(): #and profile_frm.is_valid()
+        if user_form.is_valid():
+            #and profile_frm.is_valid()
             user =user_form.save()
             user.set_password(user.password)
             user.save()
@@ -27,7 +28,7 @@ def register(request):
     else:
         user_form=UserForm()
         #profile_form=UserProfileInfoFrom()
-    return render(request,'webap/registeration.html',{'user_form':user_form,'registered':registered})
+    return render(request,'webapp/registeration.html',{'user_form':user_form,'registered':registered})
     #add key value pair 'profile_form':profile_form,
 
 
