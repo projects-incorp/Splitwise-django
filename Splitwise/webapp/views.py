@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from webapp.forms import UserForm
-from webapp.forms import UserProfileInfo
-
+#from webapp.forms import UserProfileInfo
+from django.http import HttpResponse
 def index(request):
     return render(request,'webapp/index.html')
 
@@ -22,17 +22,15 @@ def register(request):
                 #profile.profile_pic=request.FILES['profile_pic']
             #profile.save
             registered=True
-         else:
-             print(user_form.errors)
-             #print(profile_forms.errors)
-                 
+
+            #print(profile_forms.errors)
     else:
         user_form=UserForm()
         #profile_form=UserProfileInfoFrom()
     return render(request,'webap/registeration.html',{'user_form':user_form,'registered':registered})
     #add key value pair 'profile_form':profile_form,
 
-            
+
 
 
 
