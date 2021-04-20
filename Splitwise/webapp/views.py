@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
-
+#import all the views eg-from django.view.generic import(TemplateView,ListView)
 
 def index(request):
     return render(request,'webapp/index.html')
@@ -71,5 +71,8 @@ def user_login(request):
         return render(request, 'webapp/login.html', {})
 
 
-
 # Create your views here.
+#For every page we need to Create
+#class Name(TemplateView)
+#template_name='name.html'
+#etc etc
