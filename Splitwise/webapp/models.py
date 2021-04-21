@@ -10,3 +10,12 @@ def __str__(self):
         return self.user.username
 
 #class Transact(models.Model):
+
+class Transaction_Pairs(models.Model):
+    person1=models.CharField(max_length=264)
+    person2=models.CharField(max_length=264)
+    amount=models.FloatField(default=0.0)
+    reason=models.CharField(max_length=264)
+
+    #def __str__(self):
+        #return self.Transaction_Pairs.amount

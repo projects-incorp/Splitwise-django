@@ -1,28 +1,26 @@
 <!Contains the new transaction page>
 <!Similar to registration.html>
-{% extends "webapp/base.html" %}
+{% extends "base.html" %}
 
 
 {% block body_block %}
-  <div class="container">
-    <div class="jumbotron">
-      {% if True %}
-        <h1>Transaction Done</h1>
-      {% else %}
+
+
         <h1>Enter the details:</h1>
 
 
         <form enctype="multipart/form-data" method="POST">
+        <!form method="POST" class="post-form">
+          {{TransactionForm.as_p}}
           {% csrf_token %}
-  
-          {{transaction_form.as_p}}
+
+
           <input type="submit" name="" value="Register">
         </form>
+        <script>var editor = new MediumEditor('.editable');</script>
 
-      {% endif %}
 
-    </div>
 
-  </div>
+    
 
 {% endblock %}

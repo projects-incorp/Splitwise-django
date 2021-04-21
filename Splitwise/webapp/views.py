@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from webapp.forms import UserForm
+from webapp.forms import TransactionForm
 #from webapp.forms import UserProfileInfo
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -70,6 +71,22 @@ def user_login(request):
     else:
         return render(request, 'webapp/login.html', {})
 
+
+def transaction(request):
+
+    progress=False
+
+    if request.method == "POST":
+        transact_form=TransactionForm(data=request.POST)
+        if transact_form.is_valid():
+            transact =transact_form.save()
+            #transact.set_password(user.password)
+            user.save()
+            progress=True
+
+    else:
+        transact_form=TransactionForm()
+    return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress})
 
 # Create your views here.
 #For every page we need to Create
