@@ -9,5 +9,4 @@ def __str__(self):
         # Built-in attribute of django.contrib.auth.models.User !
         return self.user.username
 
-class Transact(models.Model):
-    
+#class Transact(models.Model):

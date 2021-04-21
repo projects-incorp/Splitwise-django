@@ -24,5 +24,4 @@ urlpatterns = [
     url(r'^webapp/',include('webapp.urls')),
     url(r'^logout/$',views.user_logout, name='logout'),
     url(r'special/',views.special,name='special'),
-    url(r'',include('webapp.urls')),
 ]

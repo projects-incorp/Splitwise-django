@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
 
 def index(request):
-    return render(request,'webapp/index.html')
+    return render(request,'index.html')
 
 @login_required
 def special(request):

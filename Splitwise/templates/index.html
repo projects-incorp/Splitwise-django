@@ -1,4 +1,4 @@
-{% extends "webapp/base.html" %}
+{% extends "base.html" %}
 {% block body_block %}
 
 <div class="container">
@@ -6,6 +6,7 @@
     <h1>Splitwise</h1>
     {% if user.is_authenticated %}
         <h2>Welcome {{ user.username }}!</h2>
+
     {% else %}
         <h2>Welcome to the site!</h2>
     {% endif %}
@@ -13,5 +14,3 @@
 </div>
 
 {% endblock %}
-
-<!Display User Information >

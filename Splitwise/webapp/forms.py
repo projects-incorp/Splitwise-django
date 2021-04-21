@@ -9,14 +9,11 @@ class UserForm(forms.ModelForm):
         model=User
         fields = ('username','email','password')
 
-class TransactionForm(forms.ModelForm):
-    transaction_name = forms.CharField()
+#class TransactionForm(forms.ModelForm):
+    #transaction_name = forms.CharField()
     #amount = forms.IntField()
     #number of people
-
-
-
-    class Meta():
+    #class Meta():
         #model=Transact
         #fields=('transaction_name','amount', '')
 #class UserProfileInfoForm(forms.ModelForm):
