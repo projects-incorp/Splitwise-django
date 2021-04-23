@@ -18,7 +18,7 @@ class TransactionForm(forms.ModelForm):
 
     class Meta():
         model=Transaction_Pairs
-        fields=('person1',)
+        fields=('person2','amount',)
 
 
 #class UserProfileInfoForm(forms.ModelForm):
