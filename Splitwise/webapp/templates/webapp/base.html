@@ -13,17 +13,17 @@
         <ul class="nav navbar-nav">
 
           {# Django Home Link / Admin Link / Register Link#}
-          <li><a class="navbar-brand" href="{% url 'index' %}">DJANGO</a></li>
-          <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>
+          <li><a class="navbar-brand" href="{% url 'index' %}">Home</a></li>
           <li><a class="navbar-link" href="{% url 'webapp:register' %}">Register</a></li>
-
-
           {% if user.is_authenticated %}
             <li><a class='navbar-link' href="{% url 'logout' %}">Logout</a></li>
-            <li><a class="navbar-link" href="{% url 'transaction' %}">Transaction</a></li>
+            <li><a class="navbar-link" href="{% url 'transaction' %}">New Transaction</a></li>
           {% else %}
             <li><a class='navbar-link' href="{% url 'webapp:user_login'%}">Login</a></li>
           {% endif %}
+          <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>
+
+
 
         </ul>
       </div>

@@ -1,5 +1,7 @@
+from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 #class UserProfileInfo(models):
 #    user = models.OnetoOneField(User)
@@ -16,6 +18,7 @@ class Transaction_Pairs(models.Model):
     person2=models.CharField(max_length=264)
     amount=models.FloatField(default=0.0)
     reason=models.CharField(max_length=264)
+    
 
     #def __str__(self):
         #return self.Transaction_Pairs.amount

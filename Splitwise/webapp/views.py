@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate,login,logout
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
 
 def index(request):
-    return render(request,'index.html')
+    return render(request,'webapp/index.html')
 
 @login_required
 def special(request):
@@ -75,18 +75,17 @@ def user_login(request):
 def transaction(request):
 
     progress=False
-
     if request.method == "POST":
         transact_form=TransactionForm(data=request.POST)
         if transact_form.is_valid():
             transact =transact_form.save()
-            #transact.set_password(user.password)
-            user.save()
             progress=True
 
     else:
         transact_form=TransactionForm()
-    return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress})
+        return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress})
+
+    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress})
 
 # Create your views here.
 #For every page we need to Create
