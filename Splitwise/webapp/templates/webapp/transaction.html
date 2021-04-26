@@ -8,10 +8,17 @@
 
 
         <form method="POST" class="post-form">
-          {{transact_form.as_p}}
           {% csrf_token %}
-          <button type='Submit' class="save btn btn-default">Save</button>
+
+            {{ transact_form }}
+              
+                <button type='Submit' class="save btn btn-default">Save</button>
         </form>
+
+
+
+
+
 
 
 {% endblock %}

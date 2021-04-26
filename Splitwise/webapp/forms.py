@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from webapp.models import Transaction_Pairs
+from webapp.models import Transaction_history
 #from webapp.models import UserProfileInfo
 
 class UserForm(forms.ModelForm):
@@ -11,7 +12,7 @@ class UserForm(forms.ModelForm):
         fields = ('username','email','password')
 
 class TransactionForm(forms.ModelForm):
-    amount = forms.IntegerField()
+
     people=forms.CharField()
     #Enter the users
     #User1={username}
@@ -20,6 +21,11 @@ class TransactionForm(forms.ModelForm):
         model=Transaction_Pairs
         fields=('amount',)
 
+
+class HistForm(forms.ModelForm):
+    class Meta():
+        model=Transaction_history
+        fields=('date','reason')
 
 #class UserProfileInfoForm(forms.ModelForm):
    # class Meta():

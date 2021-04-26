@@ -16,8 +16,15 @@ class Transaction_Pairs(models.Model):
     person1=models.CharField(max_length=264)
     person2=models.CharField(max_length=264)
     amount=models.FloatField()
-    reason=models.CharField(max_length=264)
 
 
     def __str__(self):
         return self.person1 +" "+self.person2 + " "
+
+class Transaction_history(models.Model):
+    #Transaction_Pairs=models.ForeignKey(Transaction_Pairs,on_delete=models.CASCADE)
+    date=models.DateField()
+    reason=models.CharField(max_length=264)
+    amount=models.FloatField()
+    def __str__(self):
+        return self.reason

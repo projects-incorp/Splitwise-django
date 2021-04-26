@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from webapp.forms import UserForm
+from webapp.forms import HistForm
 from webapp.forms import TransactionForm
 from webapp.models import Transaction_Pairs
+from webapp.models import Transaction_history
 #from webapp.forms import UserProfileInfo
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -78,11 +80,14 @@ def transaction(request):
     progress=False
     if request.method == "POST":
         transact_form=TransactionForm(data=request.POST)
+        #history_form=HistForm(data=request.POST)
+        #and history_form.is_valid()
         if transact_form.is_valid():
-            #transact =transact_form.save()
             progress=True
             person1_=request.user.get_username()
             amt=request.POST["amount"]
+            #reason=request.POST["reason"]
+            #date=request.POST["date"]
             amt1=float(amt)
             people=request.POST["people"]
             user_list=[]
@@ -99,7 +104,6 @@ def transaction(request):
                 person2_=user_list[i-1]
                 contrib=(amt1)/float(numpeople_)
                 t_pair_count = Transaction_Pairs.objects.filter(person1=person1_,person2=person2_).count()
-                print (t_pair_count)
                 if t_pair_count==1:
                     obj=Transaction_Pairs.objects.get(person1=person1_,person2=person2_)
                     amt_=float(obj.amount)
@@ -113,17 +117,18 @@ def transaction(request):
                     t_pair_count=0
                 else:
                     break
+                #history=Transaction_history(date=date,reason=reason,amount=contrib)
+                #history.save()
 
 
-
-            #Put in database
 
     else:
         transact_form=TransactionForm()
-        return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress})
-
-    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress})
-
+        #history_form=HistForm()
+        return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,})
+    data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"messages":data})
+#'history_form':history_form,
 def index(request):
     data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
     return render(request,'webapp/index.html',{"messages":data})
