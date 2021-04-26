@@ -10,8 +10,6 @@ from django.contrib.auth import authenticate,login,logout
 
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
 
-def index(request):
-    return render(request,'webapp/index.html')
 
 @login_required
 def special(request):
@@ -84,13 +82,22 @@ def transaction(request):
             #transact =transact_form.save()
             progress=True
             person1_=request.user.get_username()
-            person2_=request.POST["person2"] #Replaced by the Friends Strings BY SHREYA
             amt=request.POST["amount"]
             amt1=float(amt)
-            numpeople=request.POST["number_of_people"]
-            numpeople_=int(numpeople)
+            people=request.POST["people"]
+            user_list=[]
+            a=0
+            for x in range(0,len(people)):
+                if people[x]==',':
+                    temp=people[a:x]
+                    a=x + 1
+                    user_list.append(temp)
+                    temp=""
+            user_list.append(people[a:])
+            numpeople_=len(user_list)+1
             for i in range(1,numpeople_):
-                contrib=(amt1)/float(numpeople)
+                person2_=user_list[i-1]
+                contrib=(amt1)/float(numpeople_)
                 t_pair_count = Transaction_Pairs.objects.filter(person1=person1_,person2=person2_).count()
                 print (t_pair_count)
                 if t_pair_count==1:
@@ -101,7 +108,7 @@ def transaction(request):
                     obj.save()
                     t_pair_count=0
                 elif t_pair_count==0:
-                    transact=Transaction_Pairs(person1=person1_,person2=person2_,amount=amt)
+                    transact=Transaction_Pairs(person1=person1_,person2=person2_,amount=contrib)
                     transact.save()
                     t_pair_count=0
                 else:
@@ -117,8 +124,9 @@ def transaction(request):
 
     return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress})
 
-
-
+def index(request):
+    data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+    return render(request,'webapp/index.html',{"messages":data})
 
 
 # Create your views here.

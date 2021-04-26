@@ -1,0 +1,20 @@
+{% extends "webapp/base.html" %}
+{% block body_block %}
+
+
+        <h1>Enter the details:</h1>
+
+
+
+        <form method="POST" class="post-form">
+          {{addfriend_form.as_p}}
+          {% csrf_token %}
+          <button tpe='Submit' class="save btn btn-default">Save</button>
+        </form>
+
+
+
+
+
+
+{% endblock %}

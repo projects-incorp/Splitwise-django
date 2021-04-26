@@ -12,13 +12,13 @@ class UserForm(forms.ModelForm):
 
 class TransactionForm(forms.ModelForm):
     amount = forms.IntegerField()
-    number_of_people = forms.IntegerField()
+    people=forms.CharField()
     #Enter the users
     #User1={username}
 
     class Meta():
         model=Transaction_Pairs
-        fields=('person2','amount',)
+        fields=('amount',)
 
 
 #class UserProfileInfoForm(forms.ModelForm):
