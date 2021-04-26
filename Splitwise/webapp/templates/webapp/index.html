@@ -9,7 +9,7 @@
           <div class="col-md-12">
             <h2 class="text-centre">Database</h2>
             <table>
-              <thead class="thead-dark">
+              <thead http://127.0.0.1:8000/>
                 <tr>
                   <th>Sr.No</th>
                   <th>Name</th>
@@ -19,7 +19,7 @@
               <tbody>
                 {% for i in messages %}
                   <tr>
-                    <td>{{i.id}}</td>
+                    <td>{{forloop.counter}}</td>
                     <td>{{i.person2}}</td>
                     <td>{{i.amount}}</td>
                   </tr>
