@@ -1,1 +1,39 @@
 <!Display Transaction History>
+{% extends "webapp/base.html" %}
+{% block body_block %}
+<h1>Transaction History</h1>
+{% if user.is_authenticated %}
+<div class="row">
+  <div class="col-md-12">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sr.No</th>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data2 %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.date}}</td>
+            <td>{{i.person2}}</td>
+            <td>{{i.amount}}</td>
+            <td>{{i.reason}}</td>
+
+          </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{%else%}
+<h4>Login to view history</h4>
+{% endif %}
+
+{% endblock %}

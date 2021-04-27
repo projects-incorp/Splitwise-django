@@ -4,12 +4,13 @@
 
     <h1>SPLITWISE</h1>
     {% if user.is_authenticated %}
+    
         <h2>Welcome {{ user.username }} to your homepage!</h2>
         <div class="row">
           <div class="col-md-12">
             <h2 class="text-centre">Database</h2>
             <table>
-              <thead http://127.0.0.1:8000/>
+              <thead>
                 <tr>
                   <th>Sr.No</th>
                   <th>Name</th>
@@ -17,10 +18,10 @@
                 </tr>
               </thead>
               <tbody>
-                {% for i in messages %}
+                {% for i in data %}
                   <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{i.person2}}</td>
+                    <td><a href="{% url 'history' %}">{{i.person2}}</a></td>
                     <td>{{i.amount}}</td>
                   </tr>
                 {%endfor%}

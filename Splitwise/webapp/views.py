@@ -11,7 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
-
+def index(request):
+    data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+    return render(request,'webapp/index.html',{"data":data})
 
 @login_required
 def special(request):
@@ -127,11 +129,13 @@ def transaction(request):
         #history_form=HistForm(prefix="form2")
         return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,})
     data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
-    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"messages":data})
+    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"data":data})
 #'history_form':history_form,
-def index(request):
-    data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
-    return render(request,'webapp/index.html',{"messages":data})
+
+
+def history(request):
+    data2=Transaction_history.objects.filter(person1=request.user.get_username())
+    return render(request,'webapp/history.html',{"data2":data2})
 
 
 # Create your views here.
