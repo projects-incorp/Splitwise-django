@@ -14,18 +14,15 @@ class UserForm(forms.ModelForm):
 class TransactionForm(forms.ModelForm):
 
     people=forms.CharField()
-    #Enter the users
-    #User1={username}
+    reason=forms.CharField()
+    date=forms.DateField()
 
     class Meta():
         model=Transaction_Pairs
         fields=('amount',)
 
 
-class HistForm(forms.ModelForm):
-    class Meta():
-        model=Transaction_history
-        fields=('date','reason')
+
 
 #class UserProfileInfoForm(forms.ModelForm):
    # class Meta():

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from webapp.forms import UserForm
-from webapp.forms import HistForm
+
 from webapp.forms import TransactionForm
 from webapp.models import Transaction_Pairs
 from webapp.models import Transaction_history
@@ -29,7 +29,7 @@ def register(request):
 
     if request.method == "POST":
         user_form=UserForm(data=request.POST)
-        #profile_form=UserProfileInfoForm(data=reuest.Post)
+        #profile_form=UserProfileInfoForm(data=reqest.Post)
         if user_form.is_valid():
             #and profile_frm.is_valid()
             user =user_form.save()
@@ -80,14 +80,14 @@ def transaction(request):
     progress=False
     if request.method == "POST":
         transact_form=TransactionForm(data=request.POST)
-        #history_form=HistForm(data=request.POST)
+        #history_form=HistForm(data=request.POST,prefix="form2")
         #and history_form.is_valid()
         if transact_form.is_valid():
             progress=True
             person1_=request.user.get_username()
+            reason=request.POST["reason"]
+            date=request.POST["date"]
             amt=request.POST["amount"]
-            #reason=request.POST["reason"]
-            #date=request.POST["date"]
             amt1=float(amt)
             people=request.POST["people"]
             user_list=[]
@@ -117,14 +117,14 @@ def transaction(request):
                     t_pair_count=0
                 else:
                     break
-                #history=Transaction_history(date=date,reason=reason,amount=contrib)
-                #history.save()
+                history=Transaction_history(person1=person1_,person2=person2_,date=date,reason=reason,amount=contrib)
+                history.save()
 
 
 
     else:
         transact_form=TransactionForm()
-        #history_form=HistForm()
+        #history_form=HistForm(prefix="form2")
         return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,})
     data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
     return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"messages":data})
