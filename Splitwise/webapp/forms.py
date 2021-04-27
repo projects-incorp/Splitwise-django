@@ -21,8 +21,8 @@ class TransactionForm(forms.ModelForm):
         model=Transaction_Pairs
         fields=('amount',)
 
-
-
+class TransactionHistory(forms.Form):
+    person_name=forms.CharField()
 
 #class UserProfileInfoForm(forms.ModelForm):
    # class Meta():

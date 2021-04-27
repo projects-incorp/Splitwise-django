@@ -18,6 +18,7 @@
           {% if user.is_authenticated %}
             <li><a class='navbar-link' href="{% url 'logout' %}">Logout</a></li>
             <li><a class="navbar-link" href="{% url 'transaction' %}">New Transaction</a></li>
+            <li><a class="navbar-link" href="{% url 'history' %}">Transaction History</a></li>
           {% else %}
             <li><a class='navbar-link' href="{% url 'webapp:user_login'%}">Login</a></li>
           {% endif %}

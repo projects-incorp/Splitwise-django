@@ -2,6 +2,7 @@ from django.shortcuts import render
 from webapp.forms import UserForm
 
 from webapp.forms import TransactionForm
+from webapp.forms import TransactionHistory
 from webapp.models import Transaction_Pairs
 from webapp.models import Transaction_history
 #from webapp.forms import UserProfileInfo
@@ -135,7 +136,16 @@ def transaction(request):
 
 def history(request):
     data2=Transaction_history.objects.filter(person1=request.user.get_username())
-    return render(request,'webapp/history.html',{"data2":data2})
+    if request.method == 'POST':
+        transact_history=TransactionHistory(data=request.POST)
+
+        if transact_history.is_valid():
+            person_n=request.POST["person_name"]
+    else:
+        transact_history=TransactionHistory()
+        return render(request,'webapp/history.html',{'transact_history':transact_history,"data2":data2})
+    data2=Transaction_history.objects.filter(person1=request.user.get_username(),person2=person_n)
+    return render(request,'webapp/history.html',{"data2":data2,"transact_history":transact_history})
 
 
 # Create your views here.

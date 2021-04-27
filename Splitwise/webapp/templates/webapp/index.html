@@ -24,7 +24,7 @@ tr:nth-child(even) {
         <h2>Welcome {{ user.username }} to your homepage!</h2>
         <div class="row">
           <div class="col-md-12">
-            <h2 class="text-centre">Database</h2>
+
             <table>
               <thead>
                 <tr>
@@ -37,7 +37,7 @@ tr:nth-child(even) {
                 {% for i in data %}
                   <tr>
                     <td>{{forloop.counter}}</td>
-                    <td><a href="{% url 'history' %}">{{i.person2}}</a></td>
+                    <td>{{i.person2}}</td>
                     <td>{{i.amount}}</td>
                   </tr>
                 {%endfor%}

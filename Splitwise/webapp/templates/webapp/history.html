@@ -1,6 +1,33 @@
+
+
 <!Display Transaction History>
 {% extends "webapp/base.html" %}
 {% block body_block %}
+<h4>Filter by Name</h4>
+<form method="POST" class="post-form">
+  {% csrf_token %}
+
+    {{ transact_history.as_p}}
+
+        <button type='Submit' class="save btn btn-default">Save</button>
+</form>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
 <h1>Transaction History</h1>
 {% if user.is_authenticated %}
 <div class="row">
@@ -17,7 +44,11 @@
         </tr>
       </thead>
       <tbody>
+
         {% for i in data2 %}
+          {%if forloop.counter==0%}
+            <h4>No Transaction History</h4>
+          {%else%}
           <tr>
             <td>{{forloop.counter}}</td>
             <td>{{i.date}}</td>
@@ -26,14 +57,17 @@
             <td>{{i.reason}}</td>
 
           </tr>
+          {%endif%}
         {%endfor%}
       </tbody>
     </table>
+
   </div>
 </div>
 
 {%else%}
 <h4>Login to view history</h4>
 {% endif %}
+
 
 {% endblock %}
