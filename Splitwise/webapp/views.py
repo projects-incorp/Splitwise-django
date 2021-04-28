@@ -12,9 +12,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
+person_n=""
 def index(request):
+    global person_n
     datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
     dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+    if request.method == 'GET' and person_n is not "":
+        obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
+        obj.amount=0
+        obj.save()
+        person_n=""
+        datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+        dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
     return render(request,'webapp/index.html',{"datap":datap,"dataopp":dataopp})
 
 @login_required
@@ -107,7 +116,7 @@ def transaction(request):
                 contrib=(amt1)/float(numpeople_)
                 t_pair_count = Transaction_Pairs.objects.filter(person1=person1_,person2=person2_).count() + Transaction_Pairs.objects.filter(person1=person2_,person2=person1_).count()
                 if t_pair_count==1:
-                    obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
+                    obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person2_,) if Transaction_Pairs.objects.filter(person1=person2_,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person2_,person2=request.user.get_username()))
                     amt_=float(obj.amount)
                     amt_+=contrib
                     obj.amount=amt_
@@ -133,8 +142,9 @@ def transaction(request):
     return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"datap":datap,'dataopp':dataopp})
 
 
-person_n=""
+
 def history(request):
+    global person_n
     datah=Transaction_history.objects.filter(person1=request.user.get_username())
     dataopp= Transaction_history.objects.filter(person2=request.user.get_username())
     if request.method == 'POST':
@@ -142,6 +152,7 @@ def history(request):
 
         if transact_history.is_valid():
             person_n=request.POST["person_name"]
+
     else:
         transact_history=TransactionHistory()
         return render(request,'webapp/history.html',{'transact_history':transact_history,"datah":datah,"dataopp":dataopp})
@@ -151,11 +162,3 @@ def history(request):
     famt1=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
     famt=float(famt1.amount)
     return render(request,'webapp/history.html',{"dataopp":dataopp,"person_n":person_n,"famount":famt,"datah":datah,"transact_history":transact_history})
-
-
-def nullify(request):
-    obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
-    obj.amount=0
-    obj.save()
-    datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
-    return render(request,'webapp/index.html',{"datap":datap})

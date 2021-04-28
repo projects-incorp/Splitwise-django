@@ -2,6 +2,7 @@
 
 {%extends "webapp/index.html"%}
 {% block body_block %}
+<h1>Transaction History</h1>
 <h4>Filter by Name</h4>
 <form method="POST" class="post-form">
   {% csrf_token %}
@@ -10,6 +11,7 @@
 
         <button type='Submit' class="save btn btn-default">Search</button>
 </form>
+<h1> </h1>
 <style>
 table {
   font-family: arial, sans-serif;
@@ -27,11 +29,11 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
-<h1>Transaction History</h1>
+
 {% if user.is_authenticated %}
 <h3>Your net balance with {{person_n}} is {{famount}}</h3>
-<button type='Submit' class="save btn btn-default" onClick="location.href='{% url 'nullify'%}'">Nullify</button>
-
+<button type='Submit' class="save btn btn-default" onClick="location.href='{% url 'index'%}'">Amount Received</button>
+<h1></h1>
 
 <div class="row">
   <div class="col-md-12">
