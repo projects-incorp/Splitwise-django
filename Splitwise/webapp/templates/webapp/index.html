@@ -1,0 +1,54 @@
+{% extends "webapp/base.html" %}
+{% block body_block %}
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+    <h1>SPLITWISE</h1>
+    {% if user.is_authenticated %}
+
+        <h2>Welcome {{ user.username }} to your homepage!</h2>
+        <div class="row">
+          <div class="col-md-12">
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr.No</th>
+                  <th>Name</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in data %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.person2}}</td>
+                    <td>{{i.amount}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+    {% else %}
+        <h2>Welcome to the site!</h2>
+    {% endif %}
+
+
+{% endblock %}
