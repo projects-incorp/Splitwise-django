@@ -1,7 +1,6 @@
-
-
 <!Display Transaction History>
-{% extends "webapp/base.html" %}
+
+{%extends "webapp/index.html"%}
 {% block body_block %}
 <h4>Filter by Name</h4>
 <form method="POST" class="post-form">
@@ -9,7 +8,7 @@
 
     {{ transact_history.as_p}}
 
-        <button type='Submit' class="save btn btn-default">Save</button>
+        <button type='Submit' class="save btn btn-default">Search</button>
 </form>
 <style>
 table {
@@ -30,6 +29,10 @@ tr:nth-child(even) {
 </style>
 <h1>Transaction History</h1>
 {% if user.is_authenticated %}
+<h3>Your net balance with {{person_n}} is {{famount}}</h3>
+<button type='Submit' class="save btn btn-default" onClick="location.href='{% url 'nullify'%}'">Nullify</button>
+
+
 <div class="row">
   <div class="col-md-12">
 
@@ -45,20 +48,29 @@ tr:nth-child(even) {
       </thead>
       <tbody>
 
-        {% for i in data2 %}
-          {%if forloop.counter==0%}
-            <h4>No Transaction History</h4>
-          {%else%}
+        {% for i in datah %}
+
           <tr>
             <td>{{forloop.counter}}</td>
             <td>{{i.date}}</td>
             <td>{{i.person2}}</td>
             <td>{{i.amount}}</td>
             <td>{{i.reason}}</td>
+            </tr>
+            {%endfor%}
 
-          </tr>
-          {%endif%}
-        {%endfor%}
+            {% for i in dataopp %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.date}}</td>
+                <td>{{i.person1}}</td>
+                <td>-{{i.amount}}</td>
+                <td>{{i.reason}}</td>
+              </tr>
+            {%endfor%}
+
+
+
       </tbody>
     </table>
 

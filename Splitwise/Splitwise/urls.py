@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'special/',views.special,name='special'),
     url(r'transaction/$',views.transaction,name='transaction'),
     url(r'history/$',views.history,name='history'),
+    url(r'nullify/$',views.history,name='nullify'),
 ]

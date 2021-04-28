@@ -13,8 +13,9 @@ from django.contrib.auth import authenticate,login,logout
 
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
 def index(request):
-    data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
-    return render(request,'webapp/index.html',{"data":data})
+    datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+    dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+    return render(request,'webapp/index.html',{"datap":datap,"dataopp":dataopp})
 
 @login_required
 def special(request):
@@ -32,7 +33,7 @@ def register(request):
 
     if request.method == "POST":
         user_form=UserForm(data=request.POST)
-        #profile_form=UserProfileInfoForm(data=reqest.Post)
+        #profile_form=UserProfileInfoForm(datap=reqest.Post)
         if user_form.is_valid():
             #and profile_frm.is_valid()
             user =user_form.save()
@@ -83,8 +84,6 @@ def transaction(request):
     progress=False
     if request.method == "POST":
         transact_form=TransactionForm(data=request.POST)
-        #history_form=HistForm(data=request.POST,prefix="form2")
-        #and history_form.is_valid()
         if transact_form.is_valid():
             progress=True
             person1_=request.user.get_username()
@@ -106,9 +105,9 @@ def transaction(request):
             for i in range(1,numpeople_):
                 person2_=user_list[i-1]
                 contrib=(amt1)/float(numpeople_)
-                t_pair_count = Transaction_Pairs.objects.filter(person1=person1_,person2=person2_).count()
+                t_pair_count = Transaction_Pairs.objects.filter(person1=person1_,person2=person2_).count() + Transaction_Pairs.objects.filter(person1=person2_,person2=person1_).count()
                 if t_pair_count==1:
-                    obj=Transaction_Pairs.objects.get(person1=person1_,person2=person2_)
+                    obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
                     amt_=float(obj.amount)
                     amt_+=contrib
                     obj.amount=amt_
@@ -127,15 +126,17 @@ def transaction(request):
 
     else:
         transact_form=TransactionForm()
-        #history_form=HistForm(prefix="form2")
+
         return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,})
-    data= Transaction_Pairs.objects.filter(person1=request.user.get_username())
-    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"data":data})
-#'history_form':history_form,
+    datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+    dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"datap":datap,'dataopp':dataopp})
 
 
+person_n=""
 def history(request):
-    data2=Transaction_history.objects.filter(person1=request.user.get_username())
+    datah=Transaction_history.objects.filter(person1=request.user.get_username())
+    dataopp= Transaction_history.objects.filter(person2=request.user.get_username())
     if request.method == 'POST':
         transact_history=TransactionHistory(data=request.POST)
 
@@ -143,13 +144,18 @@ def history(request):
             person_n=request.POST["person_name"]
     else:
         transact_history=TransactionHistory()
-        return render(request,'webapp/history.html',{'transact_history':transact_history,"data2":data2})
-    data2=Transaction_history.objects.filter(person1=request.user.get_username(),person2=person_n)
-    return render(request,'webapp/history.html',{"data2":data2,"transact_history":transact_history})
+        return render(request,'webapp/history.html',{'transact_history':transact_history,"datah":datah,"dataopp":dataopp})
+
+    datah=Transaction_history.objects.filter(person1=request.user.get_username(),person2=person_n)
+    dataopp= Transaction_history.objects.filter(person2=request.user.get_username(),person1=person_n)
+    famt1=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
+    famt=float(famt1.amount)
+    return render(request,'webapp/history.html',{"dataopp":dataopp,"person_n":person_n,"famount":famt,"datah":datah,"transact_history":transact_history})
 
 
-# Create your views here.
-#For every page we need to Create
-#class Name(TemplateView)
-#template_name='name.html'
-#etc etc
+def nullify(request):
+    obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
+    obj.amount=0
+    obj.save()
+    datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+    return render(request,'webapp/index.html',{"datap":datap})
