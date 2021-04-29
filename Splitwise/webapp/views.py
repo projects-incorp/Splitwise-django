@@ -135,7 +135,11 @@ def transaction(request):
                     elif flag==0:
                         famt1+=contrib
                         obj.amount=famt1*(-1.0)
-
+                        if obj.amount<0:
+                            temp=obj.person1
+                            obj.person1=obj.person2
+                            obj.person2=temp
+                            obj.amount=famt1
 
                     obj.save()
 
