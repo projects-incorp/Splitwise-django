@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'special/',views.special,name='special'),
     url(r'transaction/$',views.transaction,name='transaction'),
     url(r'history/$',views.history,name='history'),
-
-
+    #url(r'settle/$',views.settle,name='settle'),
+    #url(r'^n/$',views.nullify,name='nullify',),
 ]

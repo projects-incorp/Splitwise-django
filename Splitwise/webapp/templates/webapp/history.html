@@ -32,7 +32,14 @@ tr:nth-child(even) {
 
 {% if user.is_authenticated %}
 <h3>Your net balance with {{person_n}} is {{famount}}</h3>
-<button type='Submit' class="save btn btn-default" onClick="location.href='{% url 'index'%}'">Amount Received</button>
+
+<form action="{% url 'index' %}" method="get">
+    {% csrf_token %}
+
+  <button name="mybtn" type='Submit' value="Click" class="save btn btn-default">Save</button>
+</form>
+<h3>Do you want to settle bills?</h3>
+
 <h1></h1>
 
 <div class="row">
