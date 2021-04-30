@@ -32,14 +32,16 @@ tr:nth-child(even) {
 
 {% if user.is_authenticated %}
 <h3>Your net balance with {{person_n}} is {{famount}}</h3>
-
+{%if flag%}
 <form action="{% url 'index' %}" method="get">
     {% csrf_token %}
-
-  <button name="mybtn" type='Submit' value="Click" class="save btn btn-default">Save</button>
+  <input type="text" value=0 name="mytextbox" size="1"/>
+  <button name="mybtn" type='Submit' value="Click" class="save btn btn-default">Money Received</button>
+  <button name="mybtn1" type='Submit' value="Click" class="save btn btn-default">Full Amount Received</button>
 </form>
+{% endif %}
 <h3>Do you want to settle bills?</h3>
-
+<button type='Submit' class="save btn btn-default" onClick="location.href='{% url 'settle'%}'">Yes</button>
 <h1></h1>
 
 <div class="row">
