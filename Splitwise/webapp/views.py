@@ -225,77 +225,77 @@ def nullify(request):
 
 def settle(request):
     def settle(request):
-    if request.method=='GET':
-        c1=Transaction_Pairs.objects.filter(person1=request.user.get_username()).count()
-        c2=Transaction_Pairs.objects.filter(person2=request.user.get_username()).count()
-        if c1>0 and c2==0:
-            obj1=Transaction_Pairs.objects.filter(person1=request.user.get_username())
-            for i in obj1:
-                obj2=obj1.exclude(person2=i.person2)
-                counter1=Transaction_Pairs.objects.filter(person1=i.person2).count()
-                counter2=Transaction_Pairs.objects.filter(person2=i.person2).count()
-                check=0
-                if counter1 > 0:
-                    obj3=Transaction_Pairs.objects.filter(person1=i.person2)
-                    obj3=obj3.exclude(person2=i.person1)
-                if counter2 > 0:
-                    check=1
-                    obj3=Transaction_Pairs.objects.filter(person2=i.person2)
-                    obj3=obj3.exclude(person1=i.person1)
-                for j in obj2:
-                    for k in obj3:
-                        if(check==1):
-                            if(j.person2==k.person1):
-                                if(j.amount==k.amount):
-                                    print("Entered")
-                                    temp_amount=j.amount
-                                    j.amount=0
-                                    k.amount=0
-                                    i.amount+=temp_amount
-                                    i.save()
-                                    j.save()
-                                    k.save()
-                        if(check==0):
-                            if(j.person2==k.person2):
-                                if(j.amount==k.amount):
-                                    print("Entered")
-                                    temp_amount=j.amount
-                                    j.amount=0
-                                    k.amount=0
-                                    i.amount+=temp_amount
-                                    i.save()
-                                    j.save()
-                                    k.save()
-        if c1>0 and c2>0:
-            obj1=Transaction_Pairs.objects.filter(person2=request.user.get_username())
-            obj2=Transaction_Pairs.objects.filter(person1=request.user.get_username())
-            for i in obj1:
-                for j in obj2:
-                    if(i.amount==j.amount):
-                        temp_amount=i.amount
-                        i.amount=0
-                        j.amount=0
-                        obj3=Transaction_Pairs.objects.filter(person1=i.person1,person2=j.person2)
+        if request.method=='GET':
+            c1=Transaction_Pairs.objects.filter(person1=request.user.get_username()).count()
+            c2=Transaction_Pairs.objects.filter(person2=request.user.get_username()).count()
+            if c1>0 and c2==0:
+                obj1=Transaction_Pairs.objects.filter(person1=request.user.get_username())
+                for i in obj1:
+                    obj2=obj1.exclude(person2=i.person2)
+                    counter1=Transaction_Pairs.objects.filter(person1=i.person2).count()
+                    counter2=Transaction_Pairs.objects.filter(person2=i.person2).count()
+                    check=0
+                    if counter1 > 0:
+                        obj3=Transaction_Pairs.objects.filter(person1=i.person2)
+                        obj3=obj3.exclude(person2=i.person1)
+                    if counter2 > 0:
+                        check=1
+                        obj3=Transaction_Pairs.objects.filter(person2=i.person2)
+                        obj3=obj3.exclude(person1=i.person1)
+                    for j in obj2:
                         for k in obj3:
-                            k.amount+=temp_amount
-                            i.save()
-                            j.save()
-                            k.save()
-        if c2>0 and c1==0:
-            obj1=Transaction_Pairs.objects.filter(person2=request.user.get_username())
-            for i in obj1:
-                obj2=obj1.exclude(person1=i.person1)
-                for j in obj2:
-                    obj3=Transaction_Pairs.objects.filter(person1=i.person1,person2=j.person1)
-                    for k in obj3:
-                        if(j.amount==k.amount):
-                            temp_amount=j.amount
+                            if(check==1):
+                                if(j.person2==k.person1):
+                                    if(j.amount==k.amount):
+                                        print("Entered")
+                                        temp_amount=j.amount
+                                        j.amount=0
+                                        k.amount=0
+                                        i.amount+=temp_amount
+                                        i.save()
+                                        j.save()
+                                        k.save()
+                            if(check==0):
+                                if(j.person2==k.person2):
+                                    if(j.amount==k.amount):
+                                        print("Entered")
+                                        temp_amount=j.amount
+                                        j.amount=0
+                                        k.amount=0
+                                        i.amount+=temp_amount
+                                        i.save()
+                                        j.save()
+                                        k.save()
+            if c1>0 and c2>0:
+                obj1=Transaction_Pairs.objects.filter(person2=request.user.get_username())
+                obj2=Transaction_Pairs.objects.filter(person1=request.user.get_username())
+                for i in obj1:
+                    for j in obj2:
+                        if(i.amount==j.amount):
+                            temp_amount=i.amount
+                            i.amount=0
                             j.amount=0
-                            k.amount=0
-                            i.amount+=temp_amount
-                            i.save()
-                            j.save()
-                            k.save()
+                            obj3=Transaction_Pairs.objects.filter(person1=i.person1,person2=j.person2)
+                            for k in obj3:
+                                k.amount+=temp_amount
+                                i.save()
+                                j.save()
+                                k.save()
+            if c2>0 and c1==0:
+                obj1=Transaction_Pairs.objects.filter(person2=request.user.get_username())
+                for i in obj1:
+                    obj2=obj1.exclude(person1=i.person1)
+                    for j in obj2:
+                        obj3=Transaction_Pairs.objects.filter(person1=i.person1,person2=j.person1)
+                        for k in obj3:
+                            if(j.amount==k.amount):
+                                temp_amount=j.amount
+                                j.amount=0
+                                k.amount=0
+                                i.amount+=temp_amount
+                                i.save()
+                                j.save()
+                                k.save()
 
         datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
         dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
