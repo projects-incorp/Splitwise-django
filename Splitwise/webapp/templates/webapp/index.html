@@ -34,11 +34,18 @@ tr:nth-child(even) {
                 </tr>
               </thead>
               <tbody>
-                {% for i in data %}
+                {% for i in datap %}
                   <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{i.person2}}</td>
                     <td>{{i.amount}}</td>
+                  </tr>
+                {%endfor%}
+                {% for i in dataopp %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.person1}}</td>
+                    <td>-{{i.amount}}</td>
                   </tr>
                 {%endfor%}
               </tbody>
