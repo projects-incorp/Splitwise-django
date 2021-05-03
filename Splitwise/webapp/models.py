@@ -24,7 +24,7 @@ class Transaction_Pairs(models.Model):
 class Transaction_history(models.Model):
     person1=models.CharField(max_length=264,default=" ")
     person2=models.CharField(max_length=264,default=" ")
-    date=models.DateField()
+    date= models.DateTimeField( auto_now_add=True, null=True)
     reason=models.CharField(max_length=264)
     amount=models.FloatField(null=True)
     def __str__(self):

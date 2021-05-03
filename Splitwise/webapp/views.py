@@ -10,6 +10,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
+from django.db.models import DateTimeField
+
 
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
 def index(request):
@@ -109,7 +111,7 @@ def transaction(request):
             progress=True
             person1_=request.user.get_username()
             reason=request.POST["reason"]
-            date=request.POST["date"]
+            #now = date.datetime.now()
             amt=request.POST["amount"]
             amt1=float(amt)
             people=request.POST["people"]
@@ -161,7 +163,7 @@ def transaction(request):
                     t_pair_count=0
                 else:
                     break
-                history=Transaction_history(person1=person1_,person2=person2_,date=date,reason=reason,amount=contrib)
+                history=Transaction_history(person1=person1_,person2=person2_,reason=reason,amount=contrib)
                 history.save()
 
 
@@ -193,14 +195,15 @@ def history(request):
 
     datah=Transaction_history.objects.filter(person1=request.user.get_username(),person2=person_n)
     dataopp= Transaction_history.objects.filter(person2=request.user.get_username(),person1=person_n)
-    if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0:
+    if Transaction_Pairs.objects.filter(person1=request.user.get_username(),person2=person_n).count()==0 and Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 :
+        return HttpResponse("Could not find Person")
+    elif Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0:
         famt1=Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,)
         flag=True
     elif Transaction_Pairs.objects.filter(person1=request.user.get_username(),person2=person_n).count()==0:
         famt1=Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username())
         flag=False
-    else:
-        return HttpResponse("Could not find Person")
+
 
 
 

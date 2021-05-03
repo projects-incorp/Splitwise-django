@@ -15,7 +15,7 @@ class TransactionForm(forms.ModelForm):
 
     people=forms.CharField()
     reason=forms.CharField()
-    date=forms.DateField()
+    
 
     class Meta():
         model=Transaction_Pairs
