@@ -1,5 +1,7 @@
 Welcome to Splitwise Webapp
 
+http://pythonproject456.pythonanywhere.com/
+
 
 **Instructions**
 
@@ -25,11 +27,11 @@ On Windows: .\env\Scripts\activate
 git clone https://github.com/chinmayparekh/Blogspot.git
 
 **Install requirements**
+
 cd Blogspot/
 pip3 install -r requirements.txt
 
-Make migrations
-python3 manage.py makemigrations python3 manage.py migrate
+
 
 **Run the server**
 python3 manage.py runserver
