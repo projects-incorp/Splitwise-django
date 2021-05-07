@@ -1,4 +1,6 @@
 Welcome to Splitwise Webapp
+
+
 **Instructions**
 For installing virtual environment
 On macOS and Linux: python3 -m pip3 install --user virtualenv
