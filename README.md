@@ -24,7 +24,7 @@ On Windows: .\env\Scripts\activate
 
 **Use the following command in your terminal**
 
-git clone https://github.com/chinmayparekh/Blogspot.git
+git clone https://github.com/Galahad2819/Splitwise-python.git
 
 **Install requirements**
 
@@ -33,5 +33,5 @@ pip3 install -r requirements.txt
 
 
 
-**Run the server**
+**Run server on local host**
 python3 manage.py runserver
