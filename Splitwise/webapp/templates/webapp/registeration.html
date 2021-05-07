@@ -2,25 +2,47 @@
 
 
 {% block body_block %}
-  <div class="container">
-    <div class="jumbotron">
-      {% if registered %}
-        <h1>Thank you for registering!</h1>
-      {% else %}
-        <h1>Register Here</h1>
-        <h3>Just fill out the form.</h3>
+<style>
 
-        <form enctype="multipart/form-data" method="POST">
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Serif:ital@0;1&display=swap');
+  .bg-img {
+  /* The image used */
+    background-image: url('{{ STATIC_URL }}static/pics/background.JPG');
+
+  min-height: 50px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+  #Register_Header{
+    font-family: 'PT Serif', sans-serif;
+  }
+
+  #body_info{
+    font-family: 'PT Sans', sans-serif;
+  }
+
+
+</style>
+<div class="bg-img">
+      {% if registered %}
+        <h1 id="Register_Header">Thank you for registering!</h1>
+      {% else %}
+        <h1 id="Register_Header">Register Here</h1>
+        <h3 id="body_info">Just fill out the form.</h3>
+        <body>
+
+        <form enctype="multipart/form-data" method="POST" style="font-family: 'PT Sans', sans-serif;background-image: url('{{ STATIC_URL }}static/pics/background.JPG');">
           {% csrf_token %}
           {{ user_form.as_p }}
           <!{{ profile_form.as_p }}>
           <input type="submit" name="" value="Register">
         </form>
-
+        </body>
       {% endif %}
-
-    </div>
-
-  </div>
+</div>
 
 {% endblock %}

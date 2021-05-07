@@ -1,21 +1,47 @@
 
 {% extends "webapp/base.html" %}
 {% block body_block %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital@1&family=PT+Serif:ital@0;1&display=swap');
 
+  #bg{
+    background: rgb(0,0,0)
+    color: rgb(255,254,254);
+  }
 
-        <h1 style="color: brown;">Enter the details:</h1>
+  #main-header{
+    font-family: 'PT Serif', sans-serif;
+  }
+
+  #body_info{
+    font-family: 'PT Sans', sans-serif;
+  }
+</style>
+  <body id="bg">
+        <h1 id="main-header" style="text-align:center; font size: 100px";>TRANSACTION FORM</h1>
+        <h1 id="body_info">Enter the details:</h1>
 
 
 
         <form method="POST" class="post-form">
           {% csrf_token %}
 
-            {{ transact_form }}
+            {{ transact_form.as_p }}
 
                 <button type='Submit' class="save btn btn-default">Save</button>
         </form>
+        <br></br>
+        <h3 id='body_info'>Your Friends:</h3>
+        <ul>
+          {%for i in datap%}
+          <li id='body_info'>{{i.person2}}</li>
+          {%endfor%}
+          {%for i in dataopp%}
+          <li id='body_info'>{{i.person1}}</li>
+          {%endfor%}
+        </ul>
 
-
+</body>
 
 
 {% endblock %}

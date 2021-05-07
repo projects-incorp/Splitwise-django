@@ -2,8 +2,38 @@
 
 {%extends "webapp/index.html"%}
 {% block body_block %}
-<h1>Transaction History</h1>
-<h4>Filter by Name</h4>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital@1&family=PT+Serif:ital@0;1&display=swap');
+  body{
+    background-image: url('{{ STATIC_URL }}static/pics/background.JPG');
+    color: #FDFEFE;
+  }
+
+  #main-header {
+    font-family: 'PT Serif', sans-serif;
+  }
+
+  table {
+    font-family: 'PT Sans', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+
+  #body_info{
+    font-family: 'PT Sans', sans-serif
+  }
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<h1 id="main-header" style="text-align:center; font size: 100px";>TRANSACTION HISTORY</h1>
+<br></br>
+<h3 id="body_info">Filter by Name</h3>
 <form method="POST" class="post-form">
   {% csrf_token %}
 
@@ -11,27 +41,10 @@
 
         <button type='Submit' class="save btn btn-default">Search</button>
 </form>
-<h1> </h1>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+<br></br>
 
 {% if user.is_authenticated %}
-<h3>Your net balance with {{person_n}} is {{famount}}</h3>
+<h3 id="body_info">Your net balance with {{person_n}} is {{famount}}</h3>
 {%if flag%}
 <form action="{% url 'index' %}" method="get">
     {% csrf_token %}
@@ -40,9 +53,9 @@ tr:nth-child(even) {
   <button name="mybtn1" type='Submit' value="Click" class="save btn btn-default">Full Amount Received</button>
 </form>
 {% endif %}
-<h3>Do you want to settle bills?</h3>
+<h3 id="body_info">Do you want to settle bills?</h3>
 <button type='Submit' class="save btn btn-default" onClick="location.href='{% url 'settle'%}'">Yes</button>
-<h1></h1>
+<br></br>
 
 <div class="row">
   <div class="col-md-12">
@@ -89,7 +102,7 @@ tr:nth-child(even) {
 </div>
 
 {%else%}
-<h4>Login to view history</h4>
+<h4 id="body_info">Login to view history</h4>
 {% endif %}
 
 

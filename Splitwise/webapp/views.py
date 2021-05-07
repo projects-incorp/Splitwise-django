@@ -170,8 +170,11 @@ def transaction(request):
 
     else:
         transact_form=TransactionForm()
+        datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+        dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+        return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,"datap":datap,"dataopp":dataopp})
 
-        return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,})
+        
     datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
     dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
     return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"datap":datap,'dataopp':dataopp})
