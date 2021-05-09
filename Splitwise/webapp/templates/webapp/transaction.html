@@ -4,44 +4,115 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital@1&family=PT+Serif:ital@0;1&display=swap');
 
-  #bg{
-    background: rgb(0,0,0)
-    color: rgb(255,254,254);
+  .bg-img{
+    background-image: url('../../static/pics/741514.jpg'); 
+    background-position: center;
+    background-size: cover;
   }
 
   #main-header{
     font-family: 'PT Serif', sans-serif;
   }
 
-  #body_info{
+  .body_info{
+    text-align:center;
     font-family: 'PT Sans', sans-serif;
+    color: wheat;
   }
+  #id_people{
+    border-radius: 10px;
+  }
+  
+  #id_reason{
+    border-radius: 10px;
+  }
+  
+  #id_amount{
+    border-radius: 10px;
+  }
+
+  label{
+     color: whitesmoke;
+  }
+
+  .form-div{
+    margin: auto;
+    width: 25%;
+    padding-top: 20px;
+  }
+  
+  .form-button{
+    margin: auto;
+    width: 4%;
+    padding-top: 20px;
+  }
+
+  #save{
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    transition-duration: 0.4s;
+  }
+
+  #save:hover{
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+
+  #friends1 {
+    color: whitesmoke;
+  }
+
+  #friends2 {
+    color: whitesmoke;
+  }
+
 </style>
-  <body id="bg">
-        <h1 id="main-header" style="text-align:center; font size: 100px";>TRANSACTION FORM</h1>
-        <h1 id="body_info">Enter the details:</h1>
-
-
+  <body class="bg-img">
+        <h1 id="main-header" style="text-align:center; font-size: 20px; color:wheat";>TRANSACTION FORM</h1>
+        <h1 id="body_info" style="text-align:center; font-size: 20px; color:whitesmoke">Enter the details:</h1>
 
         <form method="POST" class="post-form">
           {% csrf_token %}
+          
+          <div class="form-div">
+            <div class="form_content">
+                <label for="id_people">People :</label>
+                {{ transact_form.people }}
+            </div>
+          </div>
 
-            {{ transact_form.as_p }}
+          <div class="form-div">
+            <div class="form_content">
+                <label for="id_reason">Reason :</label>
+                {{ transact_form.reason }}
+            </div>            
+          </div>
 
-                <button type='Submit' class="save btn btn-default">Save</button>
+          <div class="form-div">
+            <div class="form_content">
+                <label for="id_amount">Amount :</label>
+                {{ transact_form.amount }}
+            </div>
+           
+          </div>
+
+          <div class="form-button">
+            <button id = "save" type='Submit' class="save btn btn-default">Save</button>
+          </div>
+
         </form>
         <br></br>
-        <h3 id='body_info'>Your Friends:</h3>
+        <h3 class='body_info'>Your Friends:</h3>
         <ul>
           {%for i in datap%}
-          <li id='body_info'>{{i.person2}}</li>
+          <li id = "friends1" class='body_info'>{{i.person2}}</li>
           {%endfor%}
           {%for i in dataopp%}
-          <li id='body_info'>{{i.person1}}</li>
+          <li id ="friends2" fclass='body_info'>{{i.person1}}</li>
           {%endfor%}
         </ul>
-
-</body>
+  </body>
 
 
 {% endblock %}
