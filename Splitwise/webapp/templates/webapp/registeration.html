@@ -7,17 +7,17 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Serif:ital@0;1&display=swap');
   .bg-img {
   /* The image used */
-    background-image: url('{{ STATIC_URL }}static/pics/background.JPG');
+    background-image: url('../../static/pics/background.jpg');
+    color: whitesmoke
+  }
 
-  min-height: 50px;
+  body{
+    background-image: url('../../static/pics/background.jpg');
+    color: #FDFEFE;
 
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-  #Register_Header{
+  }
+
+  #main-header{
     font-family: 'PT Serif', sans-serif;
   }
 
@@ -27,12 +27,14 @@
 
 
 </style>
+<body>
 <div class="bg-img">
       {% if registered %}
-        <h1 id="Register_Header">Thank you for registering!</h1>
+        <h1 id="main-header"  style="text-align:center; font-size: 30px; color: wheat;";>Thank you for registering!</h1>
       {% else %}
-        <h1 id="Register_Header">Register Here</h1>
-        <h3 id="body_info">Just fill out the form.</h3>
+        <h1 id="main-header"  style="text-align:center; font-size: 30px; color: wheat;";>Register Here</h1>
+        <br></br>
+        <h3 id="body_info">Fill out the form.</h3>
         <body>
 
         <form enctype="multipart/form-data" method="POST" style="font-family: 'PT Sans', sans-serif;background-image: url('{{ STATIC_URL }}static/pics/background.JPG');">
@@ -44,5 +46,5 @@
         </body>
       {% endif %}
 </div>
-
+</body>
 {% endblock %}

@@ -2,33 +2,56 @@
 {% block body_block%}
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital@1&family=PT+Serif:ital@0;1&display=swap');
 
 #main-header {
   font-family: 'PT Serif', sans-serif;
+  color: wheat
+}
+
+.bg-img{
+  background-image: url('../../static/pics/background.jpg');
+  color: whitesmoke;
 }
 
 body{
 
-  background-image: url('{{ STATIC_URL }}static/pics/background.JPG');
+  background-image: url('../../static/pics/background.jpg');
   color: black;
 
 }
 
+#body_info{
+  color: whitesmoke;
+}
+
+#save{
+  margin-top: 20px;
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+  transition-duration: 0.4s;
+}
+
+#save:hover{
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
 
 </style>
 <body>
     <h1 id="main-header" style="text-align:center; font size: 100px";>LOGIN</h1>
-<div class="jumbotron">
+    <br></br>
 
   <form action="{%url 'webapp:user_login' %}" method="post" style="text-align:center">
     {%csrf_token %}
-    <label for="username">Username:</label>
+    <label for="username" id="body_info">Username:</label>
     <input type="text" name="username" placeholder="Enter Username">
     <br></br>
-    <label for="password">Password:</label>
+    <label for="password" id="body_info">Password:</label>
     <input type="password" name="password">
     <br></br>
-    <input type="submit" name="" value="Login">
+    <input type="submit" name="" value="Login" id="save">
    </form>
  </div>
 {% endblock %}

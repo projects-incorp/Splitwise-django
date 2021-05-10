@@ -5,7 +5,7 @@
   @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital@1&family=PT+Serif:ital@0;1&display=swap');
 
   .bg-img{
-    background-image: url('../../static/pics/741514.jpg'); 
+    background-image: url('../../static/pics/741514.jpg');
     background-position: center;
     background-size: cover;
   }
@@ -22,11 +22,11 @@
   #id_people{
     border-radius: 10px;
   }
-  
+
   #id_reason{
     border-radius: 10px;
   }
-  
+
   #id_amount{
     border-radius: 10px;
   }
@@ -40,7 +40,7 @@
     width: 25%;
     padding-top: 20px;
   }
-  
+
   .form-button{
     margin: auto;
     width: 4%;
@@ -59,13 +59,10 @@
     color: white;
   }
 
-  #friends1 {
+  #friends {
     color: whitesmoke;
   }
 
-  #friends2 {
-    color: whitesmoke;
-  }
 
 </style>
   <body class="bg-img">
@@ -74,7 +71,15 @@
 
         <form method="POST" class="post-form">
           {% csrf_token %}
-          
+
+          <div class="form-div">
+            <div class="form_content">
+                <label for="id_amount">Amount :</label>
+                {{ transact_form.amount }}
+            </div>
+
+          </div>
+
           <div class="form-div">
             <div class="form_content">
                 <label for="id_people">People :</label>
@@ -86,16 +91,10 @@
             <div class="form_content">
                 <label for="id_reason">Reason :</label>
                 {{ transact_form.reason }}
-            </div>            
+            </div>
           </div>
 
-          <div class="form-div">
-            <div class="form_content">
-                <label for="id_amount">Amount :</label>
-                {{ transact_form.amount }}
-            </div>
-           
-          </div>
+
 
           <div class="form-button">
             <button id = "save" type='Submit' class="save btn btn-default">Save</button>
@@ -106,10 +105,10 @@
         <h3 class='body_info'>Your Friends:</h3>
         <ul>
           {%for i in datap%}
-          <li id = "friends1" class='body_info'>{{i.person2}}</li>
+          <li id = "friends" class='body_info'>{{i.person2}}</li>
           {%endfor%}
           {%for i in dataopp%}
-          <li id ="friends2" fclass='body_info'>{{i.person1}}</li>
+          <li id ="friends" fclass='body_info'>{{i.person1}}</li>
           {%endfor%}
         </ul>
   </body>

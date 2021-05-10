@@ -37,17 +37,14 @@
       <div class="bg-img">
       <div class="container">
         <div class="topnav">
-        <ul class="nav navbar-nav">
 
 
-          {# Django Home Link / Admin Link / Register Link#}
-          <li><a class="navbar-brand" href="{% url 'index' %}">Home</a></li>
-        </ul>
-        <ul class="nav navbar-nav pull-right">
-          <li><a class="navbar-link" href="{% url 'webapp:register' %}">Sign up</a></li>
-        </ul>
-        <ul class="nav navbar-nav">
           {% if user.is_authenticated %}
+          <ul class="nav navbar-nav">
+
+
+            {# Django Home Link / Admin Link / Register Link#}
+            <li><a class="navbar-brand" href="{% url 'index' %}">Home</a></li>
             <li><a class="navbar-link" href="{% url 'transaction' %}">New Transaction</a></li>
             <li><a class="navbar-link" href="{% url 'history' %}">Transaction History</a></li>
           </ul>
@@ -55,9 +52,16 @@
             <li><a class='navbar-link' href="{% url 'logout' %}">Logout</a></li>
           </ul>
           {% else %}
-        </ul>
+          <ul class="nav navbar-nav">
+
+
+            {# Django Home Link / Admin Link / Register Link#}
+            <li><a class="navbar-brand" href="{% url 'index' %}">Home</a></li>
+          </ul>
         <ul class="nav navbar-nav pull-right">
             <li><a class='navbar-link' href="{% url 'webapp:user_login'%}">Login</a></li>
+            <li><a class="navbar-link" href="{% url 'webapp:register' %}">Sign up</a></li>
+
           </ul>
           {% endif %}
 
