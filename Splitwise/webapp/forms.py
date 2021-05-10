@@ -13,10 +13,9 @@ class UserForm(forms.ModelForm):
 
 class TransactionForm(forms.ModelForm):
 
-    people=forms.CharField()
-    reason=forms.CharField()
+    people=forms.CharField(widget=forms.TextInput(attrs={'class':'inputField'}))
+    reason=forms.CharField(widget=forms.TextInput(attrs={'class':'inputField'}))
     
-
     class Meta():
         model=Transaction_Pairs
         fields=('amount',)

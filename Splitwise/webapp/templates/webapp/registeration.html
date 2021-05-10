@@ -2,25 +2,49 @@
 
 
 {% block body_block %}
-  <div class="container">
-    <div class="jumbotron">
-      {% if registered %}
-        <h1>Thank you for registering!</h1>
-      {% else %}
-        <h1>Register Here</h1>
-        <h3>Just fill out the form.</h3>
+<style>
 
-        <form enctype="multipart/form-data" method="POST">
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Serif:ital@0;1&display=swap');
+  .bg-img {
+  /* The image used */
+    background-image: url('../../static/pics/background.jpg');
+    color: whitesmoke
+  }
+
+  body{
+    background-image: url('../../static/pics/background.jpg');
+    color: #FDFEFE;
+
+  }
+
+  #main-header{
+    font-family: 'PT Serif', sans-serif;
+  }
+
+  #body_info{
+    font-family: 'PT Sans', sans-serif;
+  }
+
+
+</style>
+<body>
+<div class="bg-img">
+      {% if registered %}
+        <h1 id="main-header"  style="text-align:center; font-size: 30px; color: wheat;";>Thank you for registering!</h1>
+      {% else %}
+        <h1 id="main-header"  style="text-align:center; font-size: 30px; color: wheat;";>Register Here</h1>
+        <br></br>
+        <h3 id="body_info">Fill out the form.</h3>
+        <body>
+
+        <form enctype="multipart/form-data" method="POST" style="font-family: 'PT Sans', sans-serif;background-image: url('{{ STATIC_URL }}static/pics/background.JPG');">
           {% csrf_token %}
           {{ user_form.as_p }}
           <!{{ profile_form.as_p }}>
           <input type="submit" name="" value="Register">
         </form>
-
+        </body>
       {% endif %}
-
-    </div>
-
-  </div>
-
+</div>
+</body>
 {% endblock %}

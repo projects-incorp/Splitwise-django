@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from webapp.forms import UserForm
 
 from webapp.forms import TransactionForm
@@ -18,7 +18,8 @@ def index(request):
     global person_n
     datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
     dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
-
+    return render(request,'webapp/index.html',{"datap":datap,"dataopp":dataopp})
+'''
     if request.GET.get('mybtn') or request.GET.get('mybtn1')  and person_n !="":
         amtr=int(request.GET.get('mytextbox'))
         obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
@@ -37,8 +38,8 @@ def index(request):
         datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
         dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
         person_n=""
+        '''
 
-    return render(request,'webapp/index.html',{"datap":datap,"dataopp":dataopp})
 
 @login_required
 def special(request):
@@ -165,16 +166,19 @@ def transaction(request):
                     break
                 history=Transaction_history(person1=person1_,person2=person2_,reason=reason,amount=contrib)
                 history.save()
-
-
+        #datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+        #dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+        #return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"datap":datap,'dataopp':dataopp})
+        return redirect('index')
 
     else:
         transact_form=TransactionForm()
+        datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+        dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+        return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,"datap":datap,"dataopp":dataopp})
 
-        return render(request,'webapp/transaction.html',{'transact_form':transact_form,'progress':progress,})
-    datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
-    dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
-    return render(request,'webapp/index.html',{'transact_form':transact_form,'progress':progress,"datap":datap,'dataopp':dataopp})
+
+
 
 
 person_n=""
@@ -188,13 +192,17 @@ def history(request):
 
         if transact_history.is_valid():
             person_n=request.POST["person_name"]
-
+            if person_n=="":
+                flag1=False
+            else:
+                flag1=True
     else:
         transact_history=TransactionHistory()
         return render(request,'webapp/history.html',{'transact_history':transact_history,"datah":datah,"dataopp":dataopp})
 
     datah=Transaction_history.objects.filter(person1=request.user.get_username(),person2=person_n)
     dataopp= Transaction_history.objects.filter(person2=request.user.get_username(),person1=person_n)
+
     if Transaction_Pairs.objects.filter(person1=request.user.get_username(),person2=person_n).count()==0 and Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 :
         return HttpResponse("Could not find Person")
     elif Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0:
@@ -212,11 +220,12 @@ def history(request):
         famt=float(famt1.amount)
     elif flag==False:
         famt=-float(famt1.amount)
-    return render(request,'webapp/history.html',{"flag":flag, "dataopp":dataopp,"person_n":person_n,"famount":famt,"datah":datah,"transact_history":transact_history})
+    return render(request,'webapp/history.html',{"flag":flag,"flag1":flag1, "dataopp":dataopp,"person_n":person_n,"famount":famt,"datah":datah,"transact_history":transact_history})
 
-'''
+
 def nullify(request):
     global person_n
+    '''
     print("HI1")
     if request.method == 'GET':
         print("HI2")
@@ -229,6 +238,27 @@ def nullify(request):
     else:
         return render(request,'webapp/index.html',{"datap":datap,"dataopp":dataopp})
 '''
+    if request.GET.get('mybtn') or request.GET.get('mybtn1')  and person_n !="":
+        amtr=int(request.GET.get('mytextbox'))
+        obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
+        if request.GET.get('mybtn') and amtr!=0 and obj.amount!=0:
+            #last if is so the value doesnt go from money owed 0 to negative
+            obj.amount-=amtr
+        elif request.GET.get('mybtn') and amtr==0:
+            return HttpResponse("Enter an amount!") #I want it to be an alert
+
+        elif request.GET.get('mybtn1'):
+            obj.amount=0
+        obj.save()
+        return redirect('index')
+
+
+
+
+        #datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+        #dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+        person_n=""
+        return redirect('index')
 
 def settle(request):
 
@@ -304,6 +334,7 @@ def settle(request):
                             j.save()
                             k.save()
 
-        datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
-        dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
-        return render(request, 'webapp/index.html',{'datap':datap,'dataopp':dataopp})
+        #datap= Transaction_Pairs.objects.filter(person1=request.user.get_username())
+        #dataopp= Transaction_Pairs.objects.filter(person2=request.user.get_username())
+        #return render(request, 'webapp/index.html',{'datap':datap,'dataopp':dataopp})
+        return redirect('index')

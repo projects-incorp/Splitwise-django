@@ -2,6 +2,13 @@
 {% block body_block %}
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital@1&family=PT+Serif:ital@0;1&display=swap');
+
+body{
+
+  background-image: url('{{ STATIC_URL }}static/pics/background.JPG');
+  color: #FDFEFE;
+}
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -14,14 +21,21 @@ td, th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
+
+
+#main-header {
+  font-family: 'PT Serif', sans-serif;
+
 }
 </style>
-    <h1>SPLITWISE</h1>
+    <h1 id="main-header" style="text-align:center; font-size: 100px";>SPLITWISE</h1>
+    <br></br>
+
     {% if user.is_authenticated %}
 
-        <h2>Welcome {{ user.username }} to your homepage!</h2>
+        <h2 style="text-align:center">Welcome {{ user.username }} to your homepage!</h2>
+        <br></br>
+        <h3>Transaction Details:</h3>
         <div class="row">
           <div class="col-md-12">
 
@@ -54,7 +68,7 @@ tr:nth-child(even) {
         </div>
 
     {% else %}
-        <h2>Welcome to the site!</h2>
+        <h2 style="text-align:center">Welcome to the site!</h2>
     {% endif %}
 
 
