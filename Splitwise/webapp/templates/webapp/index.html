@@ -29,7 +29,7 @@ td, th {
 }
 </style>
     <h1 id="main-header" style="text-align:center; font-size: 100px";>SPLITWISE</h1>
-    <br></br>
+
 
     {% if user.is_authenticated %}
 
@@ -69,6 +69,46 @@ td, th {
 
     {% else %}
         <h2 style="text-align:center">Welcome to the site!</h2>
+        <p>
+        Greetings from the Splitwise Team,
+        </p>
+        <p>
+        Ever had to face the difficulty of splitting bills while at dinner?
+        </p>
+        <p>
+        Worry no more, on the Splitwise webapp, you and your friends can signup for free and split bills on the go.
+        </p>
+        <p>
+        All transactions are stored and calculations are done within the app.
+        </p>
+        <p>
+        Our highlight feature is Settle. It automatically readjusts the amounts amongst your friends and settles the amounts.
+        </p>
+        <p>
+        For Example-
+      </p>
+      <p>
+        If A B C are three friends
+      </p>
+      <p>
+        A owes B 100 dollars
+      </p>
+      <p>
+        B owes C 100 dollars
+        </p>
+        <p>
+        Then within a click our proprietary algorithm adjusts these amounts such that A now will owe C 100 dollars
+        </p>
+        <p>
+        Note: This works only if all the parties are part of each others friends list
+      </p>
+      <p>
+              Amounts being settled have to be exact.
+            </p>
+        <p>
+
+        Sign Up to Get Started!
+        </p>
     {% endif %}
 
 
