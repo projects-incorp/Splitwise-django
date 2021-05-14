@@ -28,7 +28,9 @@ git clone https://github.com/Galahad2819/Splitwise-python.git
 
 **Install requirements**
 
+pip install -django==3.2
 
+pip install -django widget-tweaks
 
 
 
