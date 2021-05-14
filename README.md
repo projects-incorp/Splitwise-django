@@ -28,8 +28,7 @@ git clone https://github.com/Galahad2819/Splitwise-python.git
 
 **Install requirements**
 
-cd Blogspot/
-pip3 install -r requirements.txt
+
 
 
 
