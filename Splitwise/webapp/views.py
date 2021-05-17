@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.db.models import DateTimeField
+from django.contrib import messages
 
 
 #import all the views eg-from django.view.generic import(TemplateView,ListView)
@@ -182,6 +183,7 @@ def transaction(request):
 
 
 person_n=""
+
 def history(request):
     global person_n
 
@@ -193,6 +195,7 @@ def history(request):
         if transact_history.is_valid():
             person_n=request.POST["person_name"]
             if person_n=="":
+                messages.error(request,'Person Not found')
                 flag1=False
             else:
                 flag1=True
@@ -204,7 +207,9 @@ def history(request):
     dataopp= Transaction_history.objects.filter(person2=request.user.get_username(),person1=person_n)
 
     if Transaction_Pairs.objects.filter(person1=request.user.get_username(),person2=person_n).count()==0 and Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 :
-        return HttpResponse("Could not find Person")
+        messages.error(request,'Person Not found')
+        return render(request,'webapp/history.html',{'transact_history':transact_history,"datah":datah,"dataopp":dataopp})
+
     elif Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0:
         famt1=Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,)
         flag=True
@@ -241,14 +246,25 @@ def nullify(request):
     if request.GET.get('mybtn') or request.GET.get('mybtn1')  and person_n !="":
         amtr=int(request.GET.get('mytextbox'))
         obj=(Transaction_Pairs.objects.get(person1=request.user.get_username(),person2=person_n,) if Transaction_Pairs.objects.filter(person1=person_n,person2=request.user.get_username()).count()==0 else Transaction_Pairs.objects.get(person1=person_n,person2=request.user.get_username()))
-        if request.GET.get('mybtn') and amtr!=0 and obj.amount!=0:
+        if request.GET.get('mybtn') and obj.amount==0.0:
+            messages.warning(request,"You cannot receive money!")
+        elif request.GET.get('mybtn') and amtr!=0 and obj.amount!=0.0:
             #last if is so the value doesnt go from money owed 0 to negative
             obj.amount-=amtr
         elif request.GET.get('mybtn') and amtr==0:
-            return HttpResponse("Enter an amount!") #I want it to be an alert
+            messages.info(request,"Enter an amount!")
+            return render(request,'webapp/history.html')
 
-        elif request.GET.get('mybtn1'):
+            #return HttpResponse("Enter an amount!") #I want it to be an alert
+
+
+        elif request.GET.get('mybtn1') and obj.amount!=0.0:
             obj.amount=0
+            messages.success(request,"Full amount received")
+
+        elif request.GET.get('mybtn1') and obj.amount==0.0:
+            messages.warning(request,"You cannot receive money!")
+
         obj.save()
         return redirect('index')
 
