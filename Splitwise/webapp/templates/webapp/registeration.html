@@ -14,7 +14,7 @@
 
   body{
     background-image: url('../../static/pics/741514.jpg');
-    color: #FDFEFE;
+    color: black;
 
   }
 
@@ -39,9 +39,33 @@
     color: black;
   }
 
-  .signup{
-    color:white
+
+  #id_email{
+    border-radius: 10px;
   }
+
+  #id_password{
+    border-radius: 10px;
+  }
+
+  #id_username{
+    border-radius: 10px;
+  }
+
+  label{
+     color: whitesmoke;
+  }
+
+  .form-div{
+    margin: auto;
+    width: 25%;
+    padding-top: 20px;
+  }
+
+  .button{
+    text-align:center;
+  }
+
 
 </style>
 <body>
@@ -51,15 +75,36 @@
       {% else %}
         <h1 id="main-header"  style="text-align:center; font-size: 30px; color: wheat;";>Register Here</h1>
         <br></br>
-        <h3 id="body_info">Fill out the form.</h3>
+        <h3 id="body_info" style="text-align:center;">Fill out the form.</h3>
         <body>
 
-        <form enctype="multipart/form-data" class="signup" method="POST" style="font-family: 'PT Sans', sans-serif;background-image: url('{{ STATIC_URL }}static/pics/background.JPG');">
+        <form enctype="multipart/form-data" class="signup" method="POST" style="font-family: 'PT Sans', sans-serif; color:black; background-image: url('{{ STATIC_URL }}static/pics/background.JPG');">
           {% csrf_token %}
-          {{ user_form.as_p }}
-          <!{{ profile_form.as_p }}>
+          <div class="form-div">
+            <div class="form_content">
+                <label for="id_username">Username :</label>
+                {{ user_form.username }}
+            </div>
 
-          <input type="submit" name="" value="Register" id="save">
+          </div>
+
+          <div class="form-div">
+            <div class="form_content">
+                <label for="id_email">Email :</label>
+                {{ user_form.email }}
+            </div>
+          </div>
+
+
+          <div class="form-div">
+            <div class="form_content">
+                <label for="id_password">Password :</label>
+                {{ user_form.password }}
+            </div>
+          </div>
+        <div class="button">
+          <input type="submit" name="" value="Register" id="save" style="text-align:center;">
+        </div>
 
         </form>
         </body>
