@@ -35,8 +35,12 @@
   }
 
   #save:hover{
-    background-color: #AED6F1 ; 
+    background-color: #AED6F1 ;
     color: black;
+  }
+
+  .signup{
+    color:white
   }
 
 </style>
@@ -50,7 +54,7 @@
         <h3 id="body_info">Fill out the form.</h3>
         <body>
 
-        <form enctype="multipart/form-data" method="POST" style="font-family: 'PT Sans', sans-serif;background-image: url('{{ STATIC_URL }}static/pics/background.JPG');">
+        <form enctype="multipart/form-data" class="signup" method="POST" style="font-family: 'PT Sans', sans-serif;background-image: url('{{ STATIC_URL }}static/pics/background.JPG');">
           {% csrf_token %}
           {{ user_form.as_p }}
           <!{{ profile_form.as_p }}>

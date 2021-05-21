@@ -10,7 +10,7 @@ body{
   color: #FDFEFE;
 }
 table {
-  font-family: arial, sans-serif;
+  font-family: 'PT Sans', sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -27,15 +27,19 @@ td, th {
   font-family: 'PT Serif', sans-serif;
 
 }
+
+#body_info{
+  font-family: 'PT Sans', sans-serif;
+}
 </style>
-    <h1 id="main-header" style="text-align:center; font-size: 70px";>SPLITWISE</h1>
+    <h1 id="main-header" style="text-align:center; font-size: 70px;";>SPLITWISE</h1>
 
 
     {% if user.is_authenticated %}
 
         <h2 style="text-align:center">Welcome {{ user.username }} to your homepage!</h2>
         <br></br>
-        <h3>Transaction Details:</h3>
+        <h3 style="font-family:'PT Sans', sans-serif;">Transaction Details:</h3>
         <div class="row">
           <div class="col-md-12">
 
@@ -68,45 +72,45 @@ td, th {
         </div>
 
     {% else %}
-        <h2 style="text-align:center">Welcome to the site!</h2>
-        <p>
+        <h2 style="text-align:center;font-family:'PT Sans', sans-serif;">Welcome to the site!</h2>
+        <p id="body_info">
         Greetings from the Splitwise Team,
         </p>
-        <p>
+        <p id="body_info">
         Ever had to face the difficulty of splitting bills while at dinner?
         </p>
-        <p>
+        <p id="body_info">
         Worry no more, on the Splitwise webapp, you and your friends can signup for free and split bills on the go.
         </p>
-        <p>
+        <p id="body_info">
         All transactions are stored and calculations are done within the app.
         </p>
-        <p>
+        <p id="body_info">
         Our highlight feature is Settle. It automatically readjusts the amounts amongst your friends and settles the amounts.
         </p>
-        <p>
+        <p id="body_info">
         For Example-
-        <div> If A B C are three friends</div>
+        <div id="body_info"> If A B C are three friends</div>
       </p>
       <p>
 
       </p>
-      <p>
+      <p id="body_info">
         A owes B 100 dollars
       </p>
-      <p>
+      <p id="body_info">
         B owes C 100 dollars
         </p>
-        <p>
+        <p id="body_info">
         Then within a click our proprietary algorithm adjusts these amounts such that A now will owe C 100 dollars
         </p>
-        <p>
+        <p id="body_info">
         Note: This works only if all the parties are part of each others friends list
       </p>
-      <p>
+      <p id="body_info">
               Amounts being settled have to be exact.
             </p>
-        <p>
+        <p id="body_info">
 
         Sign Up to Get Started!
         </p>
