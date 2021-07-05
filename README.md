@@ -2,6 +2,9 @@ Welcome to Splitwise Webapp
 
 http://pythonproject456.pythonanywhere.com/
 
+May or may not be hosted, the time at which you would be checking
+Not responsive in nature yet, laptop is preferable.
+
 
 **Instructions**
 
