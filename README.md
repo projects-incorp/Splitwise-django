@@ -56,8 +56,8 @@ python manage.py runserver
 Contributions
 ![image](https://user-images.githubusercontent.com/73697314/124503287-dde43500-dde2-11eb-923c-d8542cc8effd.png)
 
-Galahad2819--->AkhillNagar
+Galahad2819--->AkhilNagar
 
-Katnis2810--->hetvi28
+Katnis2810--->hetvigudka28
 
 Overthinker910
